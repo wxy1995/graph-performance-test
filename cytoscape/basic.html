@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>cytoscape</title>
+    <script src="./cytoscape.js"></script>
+    <script src="./dagre-0.8.4.js"></script>
+    <script src="./cytoscape-dagre.js"></script>
+    <script src="../data/basic.js"></script>
+    <style>
+      html, body {
+        font-family: helvetica;
+        font-size: 14px;
+        height: 100%;
+      }
+
+      #container {
+        width: 100%;
+        height: 100%;
+        z-index: 999;
+      }
+
+      .canvas-container {
+        position: absolute !important;
+        top: 0;
+        left: 0;
+        z-index: 999;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="container"></div>
+
+    <script>
+      let graph = [];
+      data.nodes.forEach(node => {
+        graph.push({
+          group: 'nodes',
+          data: {
+            ...node,
+          }
+        });
+      });
+
+      data.groups.forEach(group => {
+        graph.push({
+          group: 'nodes',
+          data: {
+            ...group,
+          }
+        });
+      });
+
+      data.edges.forEach(edge => {
+        graph.push({
+          group: 'edges',
+          data: {
+            ...edge,
+          }
+        });
+      });
+
+
+      const start = window.performance.now();
+      const cy = cytoscape({
+        container: document.getElementById('container'),
+        ready: function() {},
+        layout: {
+          name: 'null'
+        },
+        elements: graph,
+        style: [
+          // {
+          //   selector: '.is-node',
+          //   style: {
+          //     'label': 'data(name)',
+          //     'shape': 'round-rectangle',
+          //     'text-valign': 'bottom',
+          //     'text-halign': 'center',
+          //   }
+          // },
+          // {
+          //   selector: 'edge',
+          //   style: {
+          //     'curve-style': 'straight',
+          //     'width': 2,
+          //     'target-arrow-shape': 'triangle',
+          //   }
+          // }
+        ]
+      });
+      const end = window.performance.now();
+
+      console.log(end - start);
+    </script>
+
+  </body>
+</html>

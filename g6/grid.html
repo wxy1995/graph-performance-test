@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>g6</title>
+    <script src="./g6.js"></script>
+    <script src="./plugin.layout.grid.js"></script>
+    <script src="../data/basic.js"></script>
+  </head>
+  <body>
+
+    <div id="mountNode"></div>
+
+    <script>
+      const gridLayout = new G6.Plugins['layout.grid']();
+      const graph = new G6.Graph({
+        container: 'mountNode',
+        width: 1920,
+        height: 878,
+        plugins: [
+          gridLayout,
+        ]
+      });
+
+      const start = window.performance.now();
+      graph.read(data);
+      const end = window.performance.now();
+
+      console.log(end - start);
+    </script>
+
+  </body>
+</html>

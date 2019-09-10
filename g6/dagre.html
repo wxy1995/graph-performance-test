@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>g6</title>
+    <script src="./g6.js"></script>
+    <script src="./plugin.layout.dagre.js"></script>
+    <script src="../data/basic-small.js"></script>
+  </head>
+  <body>
+
+    <div id="mountNode"></div>
+
+    <script>
+      const dagreLayout = new G6.Plugins['layout.dagre']();
+      const graph = new G6.Graph({
+        container: 'mountNode',
+        fitView: 'cc',
+        width: 1920,
+        height: 878,
+        plugins: [
+          dagreLayout,
+        ]
+      });
+
+      const start = window.performance.now();
+      graph.read(data);
+      const end = window.performance.now();
+
+      console.log(end - start);
+    </script>
+
+  </body>
+</html>

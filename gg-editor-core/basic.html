@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>gg-editor-core</title>
+    <script src="../g6/g6.js"></script>
+    <script src='./gg-editor-core.js'></script>
+    <script src="../g6/plugin.layout.grid.js"></script>
+    <!-- <script src="../g6/plugin.layout.circle.js"></script> -->
+    <!-- <script src="../g6/plugin.layout.dagre.js"></script> -->
+    <script src="../data/basic.js"></script>
+  </head>
+  <body>
+
+    <div id="gg"></div>
+
+    <script>
+      // const gridLayout = new G6.Plugins['layout.grid']();
+      // const circleLayout = new G6.Plugins['layout.circle']();
+      // const dagreLayout = new G6.Plugins['layout.dagre']();
+
+      class Editor extends GGEditorCore {
+        constructor(options) {
+          super(options);
+          this.id = (Math.random() * 100).toString();
+        }
+      }
+
+      const editor = new Editor({});
+      const page = new Editor.Koni({
+        graph: {
+          container: 'gg',
+          width: 1920,
+          height: 878,
+          // plugins: [
+          //   gridLayout,
+          // ],
+          modes: {
+            default: [
+              'panBlank',
+              'hoverGroupActived',
+              'keydownCmdWheelZoom',
+              'clickEdgeSelected',
+              'clickNodeSelected',
+              'clickCanvasSelected',
+              'clickGroupSelected',
+              'hoverNodeActived',
+              'hoverEdgeActived',
+              'hoverButton',
+              'dbclickGroupToCollapseExpand',
+              'clickCollapsedButton',
+              'clickExpandedButton',
+              'wheelChangeViewport',
+              'keydownShiftMultiSelected',
+              'dragNodeAddToGroup',
+              'dragOutFromGroup',
+              'panItem',
+            ],
+          },
+        }
+      });
+      editor.add(page);
+
+      const start = window.performance.now();
+      page.read(data);
+      const end = window.performance.now();
+
+      console.log(end - start);
+    </script>
+
+  </body>
+</html>

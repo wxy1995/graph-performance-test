@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>gg-editor-core</title>
+    <script src="../g6/g6.js"></script>
+    <script src="../cytoscape/cytoscape.js"></script>
+    <script src='./cytoscape-editor-core.js'></script>
+    <script src="../data/basic.js"></script>
+    <style>
+      html, body {
+        font-family: helvetica;
+        font-size: 14px;
+        height: 100%;
+      }
+
+      #container {
+        width: 100%;
+        height: 100%;
+        z-index: 999;
+      }
+
+      .canvas-container {
+        position: absolute !important;
+        top: 0;
+        left: 0;
+        z-index: 999;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="container"></div>
+
+    <script>
+      let elements = [];
+      data.nodes.forEach(node => {
+        elements.push({
+          group: 'nodes',
+          data: {
+            ...node,
+          }
+        });
+      });
+
+      data.groups.forEach(group => {
+        elements.push({
+          group: 'nodes',
+          data: {
+            ...group,
+          }
+        });
+      });
+
+      data.edges.forEach(edge => {
+        elements.push({
+          group: 'edges',
+          data: {
+            ...edge,
+          }
+        });
+      });
+
+
+      const editor = new CytoscapeEditorCore.Editor();
+
+      const start = window.performance.now();
+      const graph = new CytoscapeEditorCore.Graph({
+        container: document.getElementById('container'),
+        layout: {
+          name: 'null'
+        },
+        elements: elements,
+      });
+      editor.addComponent({ type: 'graph', controller: graph });
+      const end = window.performance.now();
+
+      console.log(end - start);
+    </script>
+
+  </body>
+</html>
